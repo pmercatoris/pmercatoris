@@ -1,0 +1,34 @@
+* Install
+
+** Hugo
+[](https://gohugo.io/installation/)
+
+#+begin_src sh
+  sudo dnf install hugo
+#+end_src
+
+** ox-hugo
+[](https://ox-hugo.scripter.co/)
+
+#+begin_src emacs-lisp
+  (use-package ox-hugo
+    :ensure t   ;Auto-install the package from Melpa
+    :pin melpa  ;`package-archives' should already have ("melpa" . "https://melpa.org/packages/")
+    :after ox)
+#+end_src
+
+** Congo theme
+[](https://jpanther.github.io/congo/docs/installation/)
+
+* Start
+
+#+begin_src sh
+  hugo server
+#+end_src
+
+* Update
+
+#+begin_src sh
+  hugo mod get -u
+#+end_src
+
