@@ -1,0 +1,77 @@
+#+hugo_base_dir: ../
+#+hugo_section: ./posts
+
+#+hugo_weight: auto
+#+hugo_auto_set_lastmod: t
+#+HUGO_CODE_FENCE: nil
+
+#+PROPERTY: header-args:python :exports both :cache yes
+#+PROPERTY: header-args:ipython :exports both :cache yes
+
+#+author: Pierre Mercatoris
+
+* Embedding D3 in Hugo post                                         :d3:hugo:
+  :PROPERTIES:
+  :EXPORT_FILE_NAME: embedding-d3-in-hugo-post
+  :EXPORT_DATE: 2019-04-22
+  :EXPORT_HUGO_MENU: :menu "posts"
+  :EXPORT_HUGO_CUSTOM_FRONT_MATTER: :summary "How to show a D3 graph into a Hugo site post"
+  :EXPORT_HUGO_CUSTOM_FRONT_MATTER+: :comments false :profile false :share false :reading_time false
+  :END:
+** Generating some data
+
+#+begin_src ipython :session :exports none
+import IPython
+from tabulate import tabulate
+
+class OrgFormatter(IPython.core.formatters.BaseFormatter):
+    def __call__(self, obj):
+        try:
+            return tabulate(obj, headers='keys',
+                            tablefmt='orgtbl', showindex='always')
+        except:
+            return None
+
+ip = get_ipython()
+ip.display_formatter.formatters['text/org'] = OrgFormatter()
+#+end_src
+
+
+
+#+begin_src python :session :exports both :results raw :eval never
+import numpy as np
+import pandas as pd
+
+size = 100
+
+df = pd.DataFrame({
+    'x': np.arange(size),
+    'y': np.random.normal(size=size),
+    'type': np.random.choice(['yes','no'], size)
+})
+df.to_csv("../static/data/random_normal.csv", index=False)
+df.head()
+#+end_src
+
+#+RESULTS:
+# Out[177]:
+|    |   x |         y | type   |
+|----+-----+-----------+--------|
+|  0 |   0 | -0.792839 | no     |
+|  1 |   1 | -0.66592  | no     |
+|  2 |   2 | -0.284811 | no     |
+|  3 |   3 | -1.84316  | no     |
+|  4 |   4 |  0.249928 | yes    |
+
+
+** Storing the D3 code
+
+#+INCLUDE: "../layouts/shortcodes/simpled3.html" src html
+
+** Plot
+
+#+begin_src md
+{{< simpled3 >}}
+#+end_src
+
+{{< simpled3 >}}
