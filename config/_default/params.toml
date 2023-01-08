@@ -16,7 +16,7 @@ enableCodeCopy = false
 # robots = ""
 
 [header]
-  layout = "hybrid" # valid options: basic, hamburger, hybrid, custom
+  layout = "basic" # valid options: basic, hamburger, hybrid, custom
   # logo = "img/logo.jpg"
   showTitle = true
 
